@@ -1,0 +1,13 @@
+{
+  "name": "riito-webapp",
+  "version": "1.0.0",
+  "description": "Real-time English-to-leetspeak converter. Static, client-side only.",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

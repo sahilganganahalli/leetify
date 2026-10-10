@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LEETIFY — Your words. A different code.</title>
+  <meta name="description" content="Type English text and get uppercase leetspeak instantly. Free, private, and runs entirely in your browser.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1113">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1113'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' text-anchor='middle' fill='%233dff8f'%3EL3%3C/text%3E%3C/svg%3E">
+  <script>
+    /* Set the theme before first paint so there is no flash. Only the light/dark choice is ever stored. */
+    (function () {
+      var t;
+      try { t = localStorage.getItem("leetify-theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") {
+        t = window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#converter">Skip to the converter</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-block">
+        <a class="brand" href="./" aria-label="LEETIFY home">
+          <span class="brand__mark" data-brand-mark aria-hidden="true">L3</span>
+          <span class="brand__name" data-brand-name>LEETIFY</span>
+        </a>
+        <p class="tagline" data-tagline>Your words. A different code.</p>
+      </div>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch to light theme">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container hero">
+      <h1>Convert your text instantly.</h1>
+      <p class="hero__lead">Type or paste English below. It is turned into capital letters, then ten letters are swapped for look-alike numbers. The result updates as you type.</p>
+      <p class="example">
+        <span class="example__label">Example</span>
+        <code id="example-in">I am Sahil</code>
+        <span class="example__arrow" aria-hidden="true">→</span>
+        <span class="sr-only">becomes</span>
+        <code id="example-out">1 4M 54H1L</code>
+      </p>
+    </section>
+
+    <noscript>
+      <p class="container noscript">This converter needs JavaScript to run. Your text is never sent anywhere.</p>
+    </noscript>
+
+    <section id="converter" class="container converter" aria-label="Converter">
+      <div class="panel">
+        <div class="panel__head">
+          <label class="panel__title" for="input">Your Text</label>
+          <span id="count" class="meta">0 characters</span>
+        </div>
+        <div class="field">
+          <textarea id="input" rows="8" placeholder="Type or paste your English text here..." autocomplete="off" autocapitalize="off"></textarea>
+        </div>
+        <div class="toolbar">
+          <button id="paste-btn" class="btn" type="button">Paste</button>
+          <button id="clear-btn" class="btn" type="button" disabled>Clear</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel__head">
+          <label class="panel__title" for="output">Converted Text</label>
+          <span class="meta">Read-only</span>
+        </div>
+        <div class="field">
+          <textarea id="output" rows="8" readonly spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Your converted text appears here."></textarea>
+        </div>
+        <div class="toolbar">
+          <button id="copy-btn" class="btn btn--primary" type="button" disabled>Copy Output</button>
+          <button id="download-btn" class="btn" type="button" disabled>Download .txt</button>
+          <button id="select-btn" class="btn" type="button" disabled>Select All</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container rules" aria-labelledby="rules-title">
+      <h2 id="rules-title">Conversion rules</h2>
+      <p>Only these ten letters are replaced. Every other letter stays as a capital letter, and spaces, line breaks, punctuation, numbers and emoji are left exactly as you typed them.</p>
+      <ul id="mapping" class="mapping" aria-label="Letter to number mapping"></ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong data-brand-name>LEETIFY</strong> turns English text into uppercase leetspeak, one character at a time.</p>
+      <p>Private by design: your text is converted in your browser and is never sent to a server. Nothing you type is saved, and there is no tracking. Only your light or dark theme choice is remembered on this device.</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/converter.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
